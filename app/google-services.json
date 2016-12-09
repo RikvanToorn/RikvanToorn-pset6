@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "344208725525",
+    "firebase_url": "https://rikvantoorn-pset6.firebaseio.com",
+    "project_id": "rikvantoorn-pset6",
+    "storage_bucket": "rikvantoorn-pset6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344208725525:android:e9c81da5a02b8b71",
+        "android_client_info": {
+          "package_name": "com.example.rik.rikvantoorn_pset6"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "344208725525-hg3bcrdr5tgg41lpsn1u5nd3qkrc419h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaadPUu-uDU1kxRSOi5CKonfJKZJNVtVQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
