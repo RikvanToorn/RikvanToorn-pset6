@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">RikvanToorn-pset6</string>
+
+    <string-array name="settings">
+        <item>Settings</item>
+        <item>SettingsActivity</item>
+        <item>ButtonLogout</item>
+
+
+
+    </string-array>
 </resources>

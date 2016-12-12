@@ -19,7 +19,8 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".ArtistActivity"></activity>
+        <activity android:name=".ArtistActivity" />
+        <activity android:name=".SettingsActivity"></activity>
     </application>
 
 </manifest>

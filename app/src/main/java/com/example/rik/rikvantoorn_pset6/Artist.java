@@ -6,10 +6,18 @@ package com.example.rik.rikvantoorn_pset6;
 
 public class Artist {
     public String name;
-    public boolean events;
+    public String events;
 
-    public Artist(String name, boolean events) {
+    public Artist(String name, String events) {
         this.name = name;
         this.events = events;
+    }
+
+    public String getname() {
+        return name;
+    }
+
+    public String getevents() {
+        return events;
     }
 }

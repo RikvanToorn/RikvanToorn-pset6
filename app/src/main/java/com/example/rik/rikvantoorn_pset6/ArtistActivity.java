@@ -13,9 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -41,16 +43,19 @@ public class ArtistActivity extends AppCompatActivity implements View.OnClickLis
     private DatabaseReference databaseReference;
 
     // declare views
-    private Button addButton;
+    private ImageButton addButton;
+    private ImageButton deleteButton;
     private TextView artistNameView;
+
+    private Artist artistInfo;
 
     // declare strings
     private String artist;
     private String artistEvent;
     private String artistName;
-    private TextView artistNameViewEvent;
     private ImageView artistImage;
     private String artistImageUrl;
+    private int numberOfEvents = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,13 +84,16 @@ public class ArtistActivity extends AppCompatActivity implements View.OnClickLis
         // get the text and imageviews from the layout
         artistNameView = (TextView) findViewById(R.id.artistNameView);
         artistImage = (ImageView) findViewById(R.id.artistImage);
-        addButton = (Button) findViewById(R.id.addToWatchList);
+        addButton = (ImageButton) findViewById(R.id.addToWatchList);
+        deleteButton = (ImageButton) findViewById(R.id.deleteFromWatchList);
+
 
         // get Listview for all the events
         ListView artistsEventsList = (ListView) findViewById(R.id.artistsEventsList);
 
         // add onclicklistener to button
         addButton.setOnClickListener(this);
+        deleteButton.setOnClickListener(this);
 
         // use data from JSON object and JSON array
         try {
@@ -94,12 +102,15 @@ public class ArtistActivity extends AppCompatActivity implements View.OnClickLis
 
             List<ArtistEvents> ArtistEventsList = new ArrayList<>();
 
+            // Put info from JSON array in Arraylist
             for (int i=0; i<jsonArray.length(); i++) {
                 JSONObject eventObject = new JSONObject(jsonArray.getString(i));
                 String title = eventObject.getString("title");
                 String date = eventObject.getString("formatted_datetime");
                 String venue = eventObject.getString("formatted_location");
                 ArtistEvents artistEvents = new ArtistEvents(title, date, venue);
+
+                numberOfEvents = numberOfEvents + 1;
 
                 ArtistEventsList.add(artistEvents);
             }
@@ -108,15 +119,14 @@ public class ArtistActivity extends AppCompatActivity implements View.OnClickLis
             artistsEventsList.setAdapter(adapter);
 
 
-
-
-
-
-
             // set Text and imageview with the info from the JSON Object
             artistName = jObject.getString("name");
             artistImageUrl = jObject.getString("image_url");
             new ImageLoadTask(artistImageUrl, artistImage).execute();
+
+            String numberEvents = numberOfEvents + "";
+
+            artistInfo = new Artist(artistName, numberEvents);
 
             artistNameView.setText(artistName);
         } catch (JSONException e) {
@@ -124,10 +134,17 @@ public class ArtistActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    // function to add a new artist to the listy in the database
+
+
+    // function to add a new artist to the list in the database
     private void addToList() {
-        DatabaseReference childRef = databaseReference.child("todo").push();
-        childRef.setValue(artistName);
+        DatabaseReference childRef = databaseReference.child("Artists").child(artistName);
+        childRef.setValue(artistInfo);
+    }
+
+    private void deleteFromList() {
+        DatabaseReference childRef = databaseReference.child("Artists").child(artistName);
+        childRef.removeValue();
     }
 
     // onclicklisteners
@@ -135,6 +152,15 @@ public class ArtistActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         if(v == addButton) {
             addToList();
+            Toast.makeText(this, "Artist added", Toast.LENGTH_SHORT).show();
+            addButton.setVisibility(View.INVISIBLE);
+            deleteButton.setVisibility(View.VISIBLE);
+        }
+        if(v == deleteButton) {
+            deleteFromList();
+            Toast.makeText(this, "Artist deleted", Toast.LENGTH_SHORT).show();
+            addButton.setVisibility(View.VISIBLE);
+            deleteButton.setVisibility(View.INVISIBLE);
         }
 
 
@@ -177,6 +203,7 @@ public class ArtistActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    // Custom adapter for the listview with events
     public class EventAdapter extends ArrayAdapter {
 
         private List<ArtistEvents> artistEventsList;
@@ -212,7 +239,4 @@ public class ArtistActivity extends AppCompatActivity implements View.OnClickLis
             return convertView;
         }
     }
-
-    ;
-
 }
