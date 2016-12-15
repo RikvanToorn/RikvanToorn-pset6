@@ -1,0 +1,10 @@
+-Use URL encoder UTF-8
+-Add header comments
+-Add more comments in other files beside profileactivity
+-Mogelijk asynctask in parate files
+-Variable namen duidelijker maken of minder op elkaar laten lijken
+-Maakt er onnodig JSONObjects van in profileactivity (gebeurd al in artistactivity)
+-Settings is leeg en overbodig
+-Addbutton moet een deletebutton zijn als de artiest al is toegevoegd
+-Geen READMR.md file
+-Sommige variabelen zijn onnodig public of global.
