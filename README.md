@@ -1,5 +1,8 @@
 RikvanToorn-PSET6, 11279184
 
+![alt tag](https://github.com/RikvanToorn/RikvanToorn-pset6/blob/master/doc/Screenshot_20161215-223434.png)
+![alt tag](https://github.com/RikvanToorn/RikvanToorn-pset6/blob/master/doc/Screenshot_20161215-223458.png)
+
 This app uses th API from 'bandsintown'. The user can register an account and use that account to log in.
 On the homescreen the user can enter an artist in the edittext to search for an artist. The user is redirected to an artist-info-screen
 where the artist name and a picture of the artist is shown. Below is a list if there are any events that artist has in the area of the user.
